@@ -49,6 +49,12 @@ void setup(){
   digitalWrite(IO2, LOW);
   
   delay(1000);
+  int voltage_read = analogRead(BATTERY_VOLT_IO);
+  // Calculate the voltage based on the analog value
+  double battery_voltage = (voltage_read / 386.0) + 2.315; 
+  //double bat_smoothed = (bat_smoothed * battery_alpha) + (battery_voltage * (1 - battery_alpha));
+  Serial.println(battery_voltage);
+  //Serial.println(bat_smoothed);
   digitalWrite(BOARD_PWR, HIGH);
   mot.setup();
   
@@ -80,26 +86,38 @@ void loop(){
     case 0:
       digitalWrite(RXD2, HIGH);
       digitalWrite(IO2, LOW);
+      digitalWrite(INDICATOR_1, LOW);
+      digitalWrite(INDICATOR_2, HIGH);
     break;
     case 1:
       digitalWrite(POWER_SW, HIGH);
       digitalWrite(RXD2, LOW);
+      digitalWrite(INDICATOR_1, HIGH);
+      digitalWrite(INDICATOR_2, LOW);
     break;
     case 2:
       digitalWrite(SCL, HIGH);
       digitalWrite(POWER_SW, LOW);
+      digitalWrite(INDICATOR_1, LOW);
+      digitalWrite(INDICATOR_2, HIGH);
     break;
     case 3:
       digitalWrite(SDA, HIGH);
       digitalWrite(SCL, LOW);
+      digitalWrite(INDICATOR_1, HIGH);
+      digitalWrite(INDICATOR_2, LOW);
     break;
     case 4:
       digitalWrite(TXD2, HIGH);
       digitalWrite(SDA, LOW);
+      digitalWrite(INDICATOR_1, LOW);
+      digitalWrite(INDICATOR_2, HIGH);
     break;
     case 5:
       digitalWrite(IO2, HIGH);
       digitalWrite(TXD2, LOW);
+      digitalWrite(INDICATOR_1, HIGH);
+      digitalWrite(INDICATOR_2, LOW);
     break;
     default:
     break;
